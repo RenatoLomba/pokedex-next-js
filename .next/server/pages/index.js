@@ -773,6 +773,8 @@ async function getStaticProps(context) {
     if (response.ok) {
       const json = await response.json();
       pokemons = json.pokemon_entries;
+    } else {
+      throw new Error('Resposta da consulta inválida');
     }
   } catch (error) {
     alert(error.message);
@@ -806,7 +808,12 @@ const Home = props => {
     }), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("ul", {
       children: pokemons.length > 0 && pokemons.map((pokemon, key) => {
         return /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("li", {
-          children: pokemon.pokemon_species.name
+          children: /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+            href: `/pokemon/${pokemon.entry_number}`,
+            children: /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("a", {
+              children: pokemon.pokemon_species.name
+            })
+          })
         }, pokemon.entry_number);
       })
     })]

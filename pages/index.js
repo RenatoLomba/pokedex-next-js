@@ -8,6 +8,8 @@ export async function getStaticProps(context) {
         if (response.ok) {
             const json = await response.json();
             pokemons = json.pokemon_entries
+        } else {
+            throw new Error('Resposta da consulta inválida');
         }
     } catch (error) {
         alert(error.message);
@@ -39,7 +41,11 @@ const Home = (props) => {
                 {pokemons.length > 0 && pokemons.map((pokemon, key) => {
                     return (
                         <li key={pokemon.entry_number}>
-                            { pokemon.pokemon_species.name}
+                            <Link href={`/pokemon/${pokemon.entry_number}`}>
+                                <a>
+                                    { pokemon.pokemon_species.name}
+                                </a>
+                            </Link>
                         </li>
                     )
                 })}
